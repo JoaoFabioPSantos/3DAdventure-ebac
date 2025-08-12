@@ -25,7 +25,6 @@ public class CharacterManager : Singleton<CharacterManager>
         Init();
     }
 
-    [Button]
     public void Init()
     {
         stateMachine = new StateMachine<CharacterStates>();
