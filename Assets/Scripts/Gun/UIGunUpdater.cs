@@ -22,6 +22,7 @@ public class UIGunUpdater : MonoBehaviour
     public void UpdateValue(float f)
     {
         uiImage.fillAmount = f;
+
     }
 
     public void UpdateValue(float max, float current)

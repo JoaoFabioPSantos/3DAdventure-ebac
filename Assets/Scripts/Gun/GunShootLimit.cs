@@ -17,6 +17,11 @@ public class GunShootLimit : GunBase
         GetAllUIs();
     }
 
+    public void ResetBullets()
+    {
+        _currentShoots = 0;
+    }
+
     protected override IEnumerator ShootCoroutine()
     {
         if(_recharging) yield break;
@@ -65,6 +70,7 @@ public class GunShootLimit : GunBase
     private void UpdateUI()
     {
         uIGunUpdaters.ForEach(i => i.UpdateValue(maxShoot, _currentShoots));
+        Debug.Log(_currentShoots);
     }
 
     private void GetAllUIs()
