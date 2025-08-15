@@ -13,6 +13,7 @@ namespace Studio.StateMachine
         public Dictionary<T, StateBase> dictionaryState;
 
         private StateBase _currentState;
+        private CharacterAnimation _currentCharacterAnimation;
         public float timeToStartGame = 1f;
 
         public StateBase currentState
@@ -23,6 +24,12 @@ namespace Studio.StateMachine
         public void Init()
         {
             dictionaryState = new Dictionary<T, StateBase>();
+        }
+
+        public void RegisterStates(T typeEnum, StateBase state, CharacterAnimation characterAnimation)
+        {
+            if (characterAnimation != null)_currentCharacterAnimation = characterAnimation;
+            dictionaryState.Add(typeEnum, state);
         }
 
         public void RegisterStates(T typeEnum, StateBase state)
@@ -36,7 +43,13 @@ namespace Studio.StateMachine
 
             _currentState = dictionaryState[state];
 
-            _currentState.OnStateEnter();
+            if (_currentCharacterAnimation != null)
+            {
+                _currentState.OnStateEnter(_currentCharacterAnimation);
+            }
+            else{
+                _currentState.OnStateEnter();
+            }
         }
 
         public void Update()

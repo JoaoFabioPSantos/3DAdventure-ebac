@@ -6,8 +6,9 @@ using DG.Tweening;
 
 public class CMStateRunning : StateBase
 {
-    public override void OnStateEnter()
+    public override void OnStateEnter(CharacterAnimation characterAnimation)
     {
+        characterAnimation.PlayRun();
         Debug.Log("Run");
     }
 

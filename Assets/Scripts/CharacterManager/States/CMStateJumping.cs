@@ -6,8 +6,9 @@ using DG.Tweening;
 
 public class CMStateJumping : StateBase
 {
-    public override void OnStateEnter()
+    public override void OnStateEnter(CharacterAnimation characterAnimation)
     {
+        characterAnimation.PlayJumping();
         Debug.Log("Jumping");
     }
 }

@@ -29,9 +29,9 @@ public class CharacterManager : Singleton<CharacterManager>
     {
         stateMachine = new StateMachine<CharacterStates>();
         stateMachine.Init();
-        stateMachine.RegisterStates(CharacterStates.IDLE, new CMStateIdle());
-        stateMachine.RegisterStates(CharacterStates.RUNNING, new CMStateRunning());
-        stateMachine.RegisterStates(CharacterStates.JUMPING, new CMStateJumping());
+        stateMachine.RegisterStates(CharacterStates.IDLE, new CMStateIdle(), characterAnimation);
+        stateMachine.RegisterStates(CharacterStates.RUNNING, new CMStateRunning(), characterAnimation);
+        stateMachine.RegisterStates(CharacterStates.JUMPING, new CMStateJumping(), characterAnimation);
     }
 
     [Button]
@@ -43,16 +43,13 @@ public class CharacterManager : Singleton<CharacterManager>
         {
             case 1:
                 stateMachine.SwitchState(CharacterStates.RUNNING);
-                characterAnimation.PlayRun();
                 break;
             case 2:
                 stateMachine.SwitchState(CharacterStates.IDLE);
-                characterAnimation.PlayIdle();
                 break;
             case 3:
                 stateMachine.SwitchState(CharacterStates.JUMPING);
                 _currentState = 0;
-                characterAnimation.PlayJumping();
                 break;
         }
     }
