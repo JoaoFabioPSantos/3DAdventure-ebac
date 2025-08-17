@@ -14,6 +14,7 @@ public class GunShootLimit : GunBase
     private bool _recharging = false;
     private void Awake()
     {
+        StartCoroutine(RechargeCoroutine());
         GetAllUIs();
     }
 
@@ -35,6 +36,11 @@ public class GunShootLimit : GunBase
                 CheckRecharge();
                 UpdateUI();
                 yield return new WaitForSeconds(timeBetweenShoots);
+            }
+            else
+            {
+                CheckRecharge();
+                yield return 0.001f;
             }
         }
     }
@@ -63,7 +69,7 @@ public class GunShootLimit : GunBase
             uIGunUpdaters.ForEach(i => i.UpdateValue(time/timeToCharge));
             yield return new WaitForEndOfFrame();
         }
-        _currentShoots = 0;
+        ResetBullets();
         _recharging = false;
     }
 
