@@ -6,6 +6,7 @@ using Items;
 public class ActionLifePack : MonoBehaviour
 {
     public SOInt quantity;
+    public GameObject alertNoLifePack;
     public KeyCode keyCode = KeyCode.C;
     
     private void Start()
@@ -20,6 +21,16 @@ public class ActionLifePack : MonoBehaviour
             ItemManager.Instance.RemoveByType(ItemType.LIFE_PACK);
             Player.Instance.healthBase.ResetLife();
         }
+        else
+        {
+            if (alertNoLifePack != null) alertNoLifePack.SetActive(true);
+            Invoke("DeactivateAlert", 1f);
+        }
+    }
+
+    private void DeactivateAlert()
+    {
+       if(alertNoLifePack != null) alertNoLifePack.SetActive(false);
     }
 
     private void Update()
