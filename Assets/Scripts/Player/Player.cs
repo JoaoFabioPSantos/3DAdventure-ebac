@@ -29,6 +29,7 @@ public class Player : MonoBehaviour//, IDamageable
 
     [Header("Life")]
     public HealthBase healthBase;
+    public GameObject deathImage;
 
     private bool _alive = true;
 
@@ -61,6 +62,7 @@ public class Player : MonoBehaviour//, IDamageable
         healthBase.ResetLife();
         Respawn();
         animator.SetTrigger("Revive");
+        deathImage.SetActive(false);
         Invoke(nameof(TurnOnColliders), .1f);
     }
 
@@ -76,7 +78,7 @@ public class Player : MonoBehaviour//, IDamageable
             _alive = false;
             animator.SetTrigger("Death");
             colliders.ForEach(i => i.enabled = false);
-
+            deathImage.SetActive(true);
             Invoke(nameof(Revive), 3f);
         }
     }
