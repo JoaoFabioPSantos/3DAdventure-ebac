@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamageable
+public class Player : MonoBehaviour//, IDamageable
 {
+    public List<Collider> colliders;
+
+    [Header("References")]
     public CharacterController characterController;
     public Animator animator;
 
+    [Header("Movement")]
     public float speed = 1f;
     public float speedRun = 1.5f;
     public float turnSpeed = 1f;
@@ -23,15 +27,58 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Flash")]
     public List<FlashColor> flashColors;
 
+    [Header("Life")]
+    public HealthBase healthBase;
+
+    private bool _alive = true;
+
+    private void OnValidate()
+    {
+        if(healthBase== null)healthBase = GetComponent<HealthBase>();
+    }
+
+    private void Awake()
+    {
+        OnValidate();
+        healthBase.OnDamage += Damage;
+        healthBase.OnKill += OnKill;
+    }
+
     #region LIFE
-    public void Damage(float damage)
+    public void Damage(HealthBase h)
     {
         flashColors.ForEach(i => i.Flash());
     }
 
     public void Damage(float damage, Vector3 dir)
     {
-        Damage(damage);
+        //Damage(damage);
+    }
+
+    private void Revive()
+    {
+        _alive = true;
+        healthBase.ResetLife();
+        Respawn();
+        animator.SetTrigger("Revive");
+        Invoke(nameof(TurnOnColliders), .1f);
+    }
+
+    private void TurnOnColliders()
+    {
+        colliders.ForEach(i => i.enabled = true);
+    }
+
+    private void OnKill(HealthBase h)
+    {
+        if (_alive)
+        {
+            _alive = false;
+            animator.SetTrigger("Death");
+            colliders.ForEach(i => i.enabled = false);
+
+            Invoke(nameof(Revive), 3f);
+        }
     }
     #endregion
 
@@ -83,6 +130,13 @@ public class Player : MonoBehaviour, IDamageable
             animator.SetBool("isRunning", false);
         }
         */
+    }
 
+    public void Respawn()
+    {
+        if(CheckpointManager.Instance.HasCheckpoint())
+        {
+            transform.position = CheckpointManager.Instance.GetPositionRespawn();
+        }
     }
 }

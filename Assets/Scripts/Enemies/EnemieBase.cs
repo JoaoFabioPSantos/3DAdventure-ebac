@@ -104,7 +104,7 @@ namespace Enemies
 
             if(p != null)
             {
-                p.Damage(1);
+                p.healthBase.Damage();
             }
         }
 
