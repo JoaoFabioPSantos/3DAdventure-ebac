@@ -937,6 +937,7 @@ MonoBehaviour:
   startLife: 20
   destroyOnKill: 0
   _currentLife: 0
+  uIFillUpdater: []
 --- !u!54 &1144145993
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1728,6 +1729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb7aa792f3eceab42b66ef692fa7255d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colliders: []
   characterController: {fileID: 1608103574}
   animator: {fileID: 1304492492}
   speed: 20
@@ -1740,6 +1742,8 @@ MonoBehaviour:
   flashColors:
   - {fileID: 1613542136}
   - {fileID: 1356657192}
+  healthBase: {fileID: 0}
+  deathImage: {fileID: 0}
 --- !u!4 &1608103576
 Transform:
   m_ObjectHideFlags: 0

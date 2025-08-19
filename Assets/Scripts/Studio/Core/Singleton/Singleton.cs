@@ -11,7 +11,7 @@ namespace Studio.Core.Singleton
         //desta maneira, o GameManager é "encontrado" e atribuido.
         public static T Instance;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (Instance == null)
             {
