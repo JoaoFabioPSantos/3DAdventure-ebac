@@ -37,7 +37,7 @@ namespace Studio.StateMachine
             dictionaryState.Add(typeEnum, state);
         }
 
-        public void SwitchState(T state)
+        public void SwitchState(T state, params object[] objs)
         { 
             if (_currentState != null) _currentState.OnStateExit();
 
@@ -48,7 +48,7 @@ namespace Studio.StateMachine
                 _currentState.OnStateEnter(_currentCharacterAnimation);
             }
             else{
-                _currentState.OnStateEnter();
+                _currentState.OnStateEnter(objs);
             }
         }
 

@@ -10,7 +10,7 @@ namespace Studio.StateMachine
         {
             Debug.Log("OnStateEnter");
         }
-        public virtual void OnStateEnter()
+        public virtual void OnStateEnter(params object[] objs)
         {
             Debug.Log("OnStateEnter");
         }

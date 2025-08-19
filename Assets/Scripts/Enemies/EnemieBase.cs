@@ -12,6 +12,7 @@ namespace Enemies
         public FlashColor flashColor;
         public ParticleSystem enemyParticleSystem;
         public float startLife = 10f;
+        public bool lookAtPlayer = false;
 
         [SerializeField]
         protected float _currentLife;
@@ -25,10 +26,18 @@ namespace Enemies
         public Ease startAnimationEase = Ease.OutBack;
         public bool startWithBornAnimation = true;
 
+        private Player _player;
+
         private void Awake()
         {
             Init();
         }
+
+        private void Start()
+        {
+            _player = GameObject.FindObjectOfType<Player>();
+        }
+
         protected void ResetLife()
         {
             _currentLife = startLife;
@@ -77,16 +86,34 @@ namespace Enemies
 
         #endregion
 
-
-        private void Update()
-        {
-           
-        }
-
         public void Damage(float damage)
         {
             Debug.Log("Damage");
             OnDamage(damage);
+        }
+
+        public void Damage(float damage, Vector3 dir)
+        { 
+            OnDamage(damage);
+            transform.DOMove(transform.position - dir, .1f);
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            Player p = collision.transform.GetComponent<Player>();
+
+            if(p != null)
+            {
+                p.Damage(1);
+            }
+        }
+
+        public virtual void Update()
+        {
+            if (lookAtPlayer)
+            {
+                transform.LookAt(_player.transform.position);
+            }
         }
     }
 }
