@@ -12,6 +12,7 @@ public class GunShootLimit : GunBase
 
     private float _currentShoots;
     private bool _recharging = false;
+
     private void Awake()
     {
         StartCoroutine(RechargeCoroutine());
@@ -81,5 +82,10 @@ public class GunShootLimit : GunBase
     private void GetAllUIs()
     {
         uIGunUpdaters = GameObject.FindObjectsOfType<UIGunUpdater>().ToList();
+    }
+
+    public bool CheckGunStatusToReload()
+    {
+        return _recharging;
     }
 }
