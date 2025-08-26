@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Studio.Core.Singleton;
+using Cloth;
 public class Player : Singleton<Player>//, IDamageable
 {
     public List<Collider> colliders;
@@ -30,6 +31,9 @@ public class Player : Singleton<Player>//, IDamageable
     [Header("Life")]
     public HealthBase healthBase;
     public GameObject deathImage;
+
+    [Space]
+    [SerializeField]private ClothChanger _clothChanger;
 
     private bool _alive = true;
 
@@ -144,5 +148,30 @@ public class Player : Singleton<Player>//, IDamageable
         {
             transform.position = CheckpointManager.Instance.GetPositionRespawn();
         }
+    }
+
+    public void ChangeSpeed(float speed, float duration)
+    {
+        StartCoroutine(ChangeSpeedCoroutine(speed, duration));
+    }
+
+    IEnumerator ChangeSpeedCoroutine(float localSpeed, float duration)
+    {
+        var defaultSpeed = speed;
+        speed = localSpeed;
+        yield return new WaitForSeconds(duration);
+        speed = defaultSpeed;
+    }
+
+    public void ChangeTexture(ClothSetup setup, float duration)
+    {
+        StartCoroutine(ChangeTextureCoroutine(setup, duration));
+    }
+
+    IEnumerator ChangeTextureCoroutine(ClothSetup setupCloth, float duration)
+    {
+        _clothChanger.ChangeTexture(setupCloth);
+        yield return new WaitForSeconds(duration);
+        _clothChanger.ResetTexture();
     }
 }
