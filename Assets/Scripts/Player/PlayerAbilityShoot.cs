@@ -17,6 +17,7 @@ public class PlayerAbilityShoot : PlayerAbilityBase
     [Header("Gun Preferences")]
     public Transform gunPosition;
     public GameObject uiGunNotChange;
+    public FlashColor flashColor;
 
     private GunShootLimit _currentGun;
 
@@ -88,6 +89,7 @@ public class PlayerAbilityShoot : PlayerAbilityBase
     private void StartShoot()
     {
         _currentGun.StartShoot();
+        flashColor?.Flash();
     }
     private void CancelShoot()
     {

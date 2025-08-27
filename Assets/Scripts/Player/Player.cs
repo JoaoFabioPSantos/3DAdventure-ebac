@@ -36,6 +36,7 @@ public class Player : Singleton<Player>//, IDamageable
     [SerializeField]private ClothChanger _clothChanger;
 
     private bool _alive = true;
+    private bool _jumping = false;
 
     private void OnValidate()
     {
@@ -55,8 +56,8 @@ public class Player : Singleton<Player>//, IDamageable
     public void Damage(HealthBase h)
     {
         flashColors.ForEach(i => i.Flash());
-        ShakeCamera.Instance.Shake();
-        EffectsManager.Instance.ChangeVignette();
+        if (ShakeCamera.Instance != null)ShakeCamera.Instance.Shake();
+        if(EffectsManager.Instance!=null)EffectsManager.Instance.ChangeVignette();
     }
 
     public void Damage(float damage, Vector3 dir)
@@ -102,10 +103,22 @@ public class Player : Singleton<Player>//, IDamageable
 
         if (characterController.isGrounded)
         {
+            if (_jumping)
+            {
+                _jumping = false;
+                animator.SetTrigger("Land");
+            }
+
             _vsSpeed = 0;
             if (Input.GetKeyDown(jumpKeyCode))
             {
                 _vsSpeed = jumpSpeed;
+
+                if (!_jumping)
+                {
+                    _jumping = true;
+                    animator.SetTrigger("Jump");
+                }
             }
         }
 
