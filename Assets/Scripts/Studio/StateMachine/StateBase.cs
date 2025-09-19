@@ -10,6 +10,12 @@ namespace Studio.StateMachine
         {
             Debug.Log("OnStateEnter");
         }
+
+        public virtual void OnStateEnter(EnemyControllerSM enemyController)
+        {
+            Debug.Log("OnStateEnter");
+        }
+
         public virtual void OnStateEnter(params object[] objs)
         {
             Debug.Log("OnStateEnter");
@@ -20,6 +26,11 @@ namespace Studio.StateMachine
             Debug.Log("OnStateStay");
         }
         public virtual void OnStateExit()
+        {
+            //Debug.Log("OnStateExit");
+        }
+
+        public virtual void OnStateExit(EnemyControllerSM enemyController)
         {
             Debug.Log("OnStateExit");
         }

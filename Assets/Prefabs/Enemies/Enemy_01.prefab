@@ -4903,7 +4903,7 @@ GameObject:
   - component: {fileID: 7294973771758575397}
   m_Layer: 0
   m_Name: Enemy_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4941,11 +4941,15 @@ MonoBehaviour:
   flashColor: {fileID: 554105260614903113}
   enemyParticleSystem: {fileID: 3815279747079634260}
   startLife: 10
+  lookAtPlayer: 0
   _currentLife: 0
   _animationBase: {fileID: 2971241072182281721}
   startAnimationDuration: 0.2
   startAnimationEase: 27
   startWithBornAnimation: 1
+  OnKillEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &7743796584234425524
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5107,6 +5111,7 @@ MonoBehaviour:
   skinnedMeshRenderer: {fileID: 0}
   color: {r: 1, g: 0, b: 0, a: 1}
   duration: 0.1
+  colorParameter: _EmissionColor
 --- !u!4 &4132950769994641915 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8115776127002297597, guid: 86dc2d7519f0fa047a4a9adbc81a8da7, type: 3}

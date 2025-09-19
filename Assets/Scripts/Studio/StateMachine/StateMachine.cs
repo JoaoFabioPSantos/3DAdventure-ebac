@@ -9,11 +9,11 @@ namespace Studio.StateMachine
     public class StateMachine<T> where T : System.Enum
     {
 
-        //a chave do dicionário e o nome
         public Dictionary<T, StateBase> dictionaryState;
 
         private StateBase _currentState;
         private CharacterAnimation _currentCharacterAnimation;
+        private EnemyControllerSM _enemyController;
         public float timeToStartGame = 1f;
 
         public StateBase currentState
@@ -32,6 +32,12 @@ namespace Studio.StateMachine
             dictionaryState.Add(typeEnum, state);
         }
 
+        public void RegisterStates(T typeEnum, StateBase state, EnemyControllerSM enemyController)
+        {
+            if (enemyController != null) _enemyController = enemyController;
+            dictionaryState.Add(typeEnum, state);
+        }
+
         public void RegisterStates(T typeEnum, StateBase state)
         {
             dictionaryState.Add(typeEnum, state);
@@ -46,6 +52,10 @@ namespace Studio.StateMachine
             if (_currentCharacterAnimation != null)
             {
                 _currentState.OnStateEnter(_currentCharacterAnimation);
+            
+            }else if(_enemyController != null)
+            {
+                _currentState.OnStateEnter(_enemyController);
             }
             else{
                 _currentState.OnStateEnter(objs);

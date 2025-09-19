@@ -4903,7 +4903,7 @@ GameObject:
   - component: {fileID: 8907566983620265567}
   m_Layer: 0
   m_Name: Enemy_02
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5011,11 +5011,15 @@ MonoBehaviour:
   flashColor: {fileID: 505860844579486701}
   enemyParticleSystem: {fileID: 2821190773464753349}
   startLife: 10
+  lookAtPlayer: 0
   _currentLife: 0
   _animationBase: {fileID: 3808579734334661666}
   startAnimationDuration: 0.2
   startAnimationEase: 27
   startWithBornAnimation: 1
+  OnKillEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &2566288476536983231
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5112,3 +5116,4 @@ MonoBehaviour:
   skinnedMeshRenderer: {fileID: 0}
   color: {r: 1, g: 0, b: 0, a: 1}
   duration: 0.1
+  colorParameter: _EmissionColor

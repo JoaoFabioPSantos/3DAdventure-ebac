@@ -18,6 +18,13 @@ namespace Items
         private void Start()
         {
             Reset();
+            LoadItemsFromSave();
+        }
+
+        public void LoadItemsFromSave()
+        {
+            AddByType(ItemType.COIN, SaveManager.Instance.Setup.coins);
+            AddByType(ItemType.LIFE_PACK, SaveManager.Instance.Setup.health);
         }
 
         private void Reset()

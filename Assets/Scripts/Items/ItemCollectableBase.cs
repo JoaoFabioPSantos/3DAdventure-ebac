@@ -7,6 +7,7 @@ namespace Items
     public class ItemCollectableBase : MonoBehaviour
     {
         public ItemType itemType;
+        public SFXType sfxType;
 
         public string compareTag = "Player";
         public ParticleSystem particleSystem;
@@ -25,8 +26,14 @@ namespace Items
             }
         }
 
+        private void PlaySFX()
+        {
+            SFXPool.Instance.Play(sfxType);
+        }
+
         protected virtual void Collect()
         {
+            PlaySFX();
             if (graphicItem != null) graphicItem.SetActive(false);
             if (collider != null) collider.enabled = false;
 
