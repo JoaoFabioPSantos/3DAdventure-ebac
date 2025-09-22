@@ -21,6 +21,7 @@ namespace Cloth
         public ClothSetup GetSetupByType(ClothType typeOfCloth)
         {
             _curClothSetup = clothSetups.Find(i => i.clothType == typeOfCloth);
+            SaveManager.Instance.Setup.clothSetup = _curClothSetup;
             return _curClothSetup;
         }
 

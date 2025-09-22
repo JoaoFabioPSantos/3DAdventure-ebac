@@ -7,6 +7,7 @@ using Studio.Core.Singleton;
 using Items;
 using System;
 using Cloth;
+using UnityEngine.SceneManagement;
 
 //da pra trocar para um .bat para alterar e deixar com maior "mascaramento", ninguem ver.
 public class SaveManager : Singleton<SaveManager>

@@ -253,7 +253,7 @@ public class Player : Singleton<Player>//, IDamageable
     public void GetOnLoad()
     {
         ChangeTexture(SaveManager.Instance.Setup.clothSetup, true);
-        Debug.Log(SaveManager.Instance.Setup.clothSetup);
+        Debug.Log(SaveManager.Instance.Setup.clothSetup.clothType);
         healthBase.ChangeStartLife(SaveManager.Instance.Setup.health);
         CheckpointManager.Instance.LoadCheckpoint(SaveManager.Instance.Setup.checkPoint);
     }

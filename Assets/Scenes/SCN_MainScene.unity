@@ -519,7 +519,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 71462496}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.23964596, y: -0.30458972, z: 0.07947828, w: 0.91841066}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -11873,7 +11873,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 302709811}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20612659, y: -0.30727574, z: 0.06836162, w: 0.9265097}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -32160,6 +32160,7 @@ GameObject:
   - component: {fileID: 1378791483}
   - component: {fileID: 1378791482}
   - component: {fileID: 1378791481}
+  - component: {fileID: 1378791484}
   m_Layer: 5
   m_Name: Music
   m_TagString: Untagged
@@ -32230,7 +32231,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1378791482}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1378791484}
+        m_TargetAssemblyTypeName: ToogleMusic, Assembly-CSharp
+        m_MethodName: ToggleMute
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1378791482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32269,6 +32282,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1378791479}
   m_CullTransparentMesh: 1
+--- !u!114 &1378791484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378791479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d5b69f297aadff498e95ce3ec06365a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: c05da15a9fe68e14da2e1b47d40e2476, type: 2}
 --- !u!1 &1386751810
 GameObject:
   m_ObjectHideFlags: 0
@@ -55200,7 +55226,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1955774065}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.22290088, y: -0.305985, z: 0.073924795, w: 0.9226178}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
