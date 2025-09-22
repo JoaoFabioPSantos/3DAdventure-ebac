@@ -6,6 +6,7 @@ using UnityEngine;
 using Studio.Core.Singleton;
 using Items;
 using System;
+using Cloth;
 
 //da pra trocar para um .bat para alterar e deixar com maior "mascaramento", ninguem ver.
 public class SaveManager : Singleton<SaveManager>
@@ -30,6 +31,7 @@ public class SaveManager : Singleton<SaveManager>
         base.Awake();
         //não vai ser destruído quando ser criado o jogo.
         DontDestroyOnLoad(gameObject);
+
     }
 
     private void Start()
@@ -37,17 +39,25 @@ public class SaveManager : Singleton<SaveManager>
         Invoke(nameof(Load), .1f);
     }
 
-    private void CreateNewSave()
+    public void CreateNewSave()
     {
         _saveSetup = new SaveSetup();
         _saveSetup.lastLevel = 0;
         _saveSetup.playerName = "Player";
+        _saveSetup.coins = 0;
+        _saveSetup.medPacks = 0;
+        _saveSetup.health = 30f;
+
+        _saveSetup.checkPoint = 0;
+        _saveSetup.clothSetup = ClothManager.Instance.ResetSetup();
     }
 
     #region SAVE
     [NaughtyAttributes.Button]
-    private void Save()
+    public void Save()
     {
+        SaveItems();
+        SavePlayerConfig();
         //esse true é para quebrar as linhas
         string setupToJson = JsonUtility.ToJson(_saveSetup, true);
         Debug.Log(setupToJson);
@@ -58,8 +68,14 @@ public class SaveManager : Singleton<SaveManager>
     public void SaveItems()
     {
         _saveSetup.coins = ItemManager.Instance.GetItemByType(ItemType.COIN).soInt.value;
-        _saveSetup.health = ItemManager.Instance.GetItemByType(ItemType.LIFE_PACK).soInt.value;
-        Save();
+        _saveSetup.medPacks = ItemManager.Instance.GetItemByType(ItemType.LIFE_PACK).soInt.value;
+    }
+
+    public void SavePlayerConfig()
+    {
+        if(Player.Instance != null)_saveSetup.health = Player.Instance.GetLife();
+        _saveSetup.clothSetup = ClothManager.Instance.GetCurrentSetup();
+        _saveSetup.checkPoint = CheckpointManager.Instance.GetLastCheckPoint();
     }
 
     public void SaveName(string text)
@@ -82,7 +98,7 @@ public class SaveManager : Singleton<SaveManager>
     }
 
     [NaughtyAttributes.Button]
-    private void Load()
+    public void Load()
     {
         string fileLoaded = "";
 
@@ -90,8 +106,6 @@ public class SaveManager : Singleton<SaveManager>
         {
             fileLoaded = File.ReadAllText(_path);
             _saveSetup = JsonUtility.FromJson<SaveSetup>(fileLoaded);
-
-            lastLevel = _saveSetup.lastLevel;
         }
         else
         {
@@ -100,7 +114,7 @@ public class SaveManager : Singleton<SaveManager>
             Save();
         }
 
-        FileLoaded.Invoke(_saveSetup);
+        //FileLoaded.Invoke(_saveSetup);
     }
 
     [NaughtyAttributes.Button]
@@ -117,5 +131,10 @@ public class SaveSetup
     public int lastLevel;
     public string playerName;
     public int coins;
-    public int health;
+    public int medPacks;
+
+    public float health;
+    public int checkPoint;
+
+    public ClothSetup clothSetup;
 }

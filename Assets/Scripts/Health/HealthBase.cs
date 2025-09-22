@@ -18,6 +18,8 @@ public class HealthBase : MonoBehaviour, IDamageable
 
     public float damageMultiplier = 1f;
 
+    public bool _changedMultiplier = false;
+
     private void Awake()
     {
         Init();
@@ -31,6 +33,17 @@ public class HealthBase : MonoBehaviour, IDamageable
     public void ResetLife()
     {
         _currentLife = startLife;
+        UpdateUi();
+    }
+
+    public float GetCurrentLife()
+    {
+        return _currentLife;
+    }
+
+    public void ChangeStartLife(float loadLife)
+    {
+        _currentLife = loadLife;
         UpdateUi();
     }
 
@@ -78,6 +91,23 @@ public class HealthBase : MonoBehaviour, IDamageable
     public void ChangeDamageMultiplier(float newDamageMultiplier, float duration)
     {
         StartCoroutine(ChangeDamageMultiplierCoroutine(newDamageMultiplier, duration));
+    }
+
+    public void ChangeDamageMultiplier(float newDamageMultiplier)
+    {
+        damageMultiplier = newDamageMultiplier;
+        _changedMultiplier = true;
+    }
+
+    public bool GetStatusDamageMultiplier()
+    {
+        return _changedMultiplier;
+    }
+
+    public void ResetDamageMultiplier()
+    {
+        damageMultiplier = 1f;
+        _changedMultiplier = false;
     }
 
     IEnumerator ChangeDamageMultiplierCoroutine(float newDamageMultiplier, float duration)

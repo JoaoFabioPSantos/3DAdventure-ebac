@@ -2,5 +2,13 @@
     "lastLevel": 0,
     "playerName": "Player",
     "coins": 0,
-    "health": 0
+    "medPacks": 1,
+    "health": 30.0,
+    "checkPoint": 1,
+    "clothSetup": {
+        "clothType": 0,
+        "texture": {
+            "instanceID": 25262
+        }
+    }
 }

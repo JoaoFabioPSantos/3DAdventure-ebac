@@ -11,7 +11,7 @@ namespace Cloth
         public override void Collect()
         {
             base.Collect();
-            Player.Instance.healthBase.ChangeDamageMultiplier(newDamageMultiplier, durationChange);
+            Player.Instance.healthBase.ChangeDamageMultiplier(newDamageMultiplier);
         }
     }
 }

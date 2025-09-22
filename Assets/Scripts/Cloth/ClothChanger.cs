@@ -7,7 +7,6 @@ namespace Cloth
 {
     public class ClothChanger : MonoBehaviour
     {
-
         public List<SkinnedMeshRenderer> meshes;
         public Texture2D texture;
         public string shaderIDName = "_EmissionMap";

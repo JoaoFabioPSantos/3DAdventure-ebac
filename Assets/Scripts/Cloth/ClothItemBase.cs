@@ -22,7 +22,7 @@ namespace Cloth
         {
             Debug.Log("Collected Cloth");
             var setup = ClothManager.Instance.GetSetupByType(clothType);
-            Player.Instance.ChangeTexture(setup, durationChange);
+            Player.Instance.ChangeTexture(setup, false);
             HideObject();
         }
 

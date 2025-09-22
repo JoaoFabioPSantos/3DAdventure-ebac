@@ -7,6 +7,7 @@ namespace Cloth
 {
     public enum ClothType 
     {
+        NONE,
         ALTERNATIVE,
         SPEED,
         STRONG,
@@ -15,10 +16,22 @@ namespace Cloth
     public class ClothManager : Singleton<ClothManager>
     {
         public List<ClothSetup> clothSetups;
+        public ClothSetup _curClothSetup;
 
         public ClothSetup GetSetupByType(ClothType typeOfCloth)
         {
-            return clothSetups.Find(i => i.clothType == typeOfCloth);
+            _curClothSetup = clothSetups.Find(i => i.clothType == typeOfCloth);
+            return _curClothSetup;
+        }
+
+        public ClothSetup GetCurrentSetup()
+        {
+            return _curClothSetup;
+        }
+
+        public ClothSetup ResetSetup()
+        {
+            return GetSetupByType(ClothType.NONE);
         }
     }
 

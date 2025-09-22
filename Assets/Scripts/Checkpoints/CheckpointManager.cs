@@ -8,10 +8,19 @@ public class CheckpointManager : Singleton<CheckpointManager>
     public int lastCheckpointKey = 0;
     public List<CheckpointBase> checkpoints;
 
+    public void LoadCheckpoint(int loadCheckpoint)
+    {
+        lastCheckpointKey = loadCheckpoint;
+    }
 
     public bool HasCheckpoint()
     {
         return lastCheckpointKey > 0;
+    }
+
+    public int GetLastCheckPoint()
+    {
+        return lastCheckpointKey;
     }
 
     public void SaveCheckpoint(int checkpointKey)

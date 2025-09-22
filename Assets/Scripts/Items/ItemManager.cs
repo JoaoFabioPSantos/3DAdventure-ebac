@@ -24,7 +24,7 @@ namespace Items
         public void LoadItemsFromSave()
         {
             AddByType(ItemType.COIN, SaveManager.Instance.Setup.coins);
-            AddByType(ItemType.LIFE_PACK, SaveManager.Instance.Setup.health);
+            AddByType(ItemType.LIFE_PACK, SaveManager.Instance.Setup.medPacks);
         }
 
         private void Reset()

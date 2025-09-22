@@ -11,7 +11,7 @@ namespace Cloth
         public override void Collect()
         {
             base.Collect();
-            Player.Instance.ChangeSpeed(targetSpeed, durationChange);
+            Player.Instance.ChangeSpeed(targetSpeed);
         }
     }
 }
