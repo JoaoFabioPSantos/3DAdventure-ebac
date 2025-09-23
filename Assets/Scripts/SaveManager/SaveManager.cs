@@ -95,7 +95,6 @@ public class SaveManager : Singleton<SaveManager>
 
     private void SaveFile(string json)
     {
-        Debug.Log(_path);
         File.WriteAllText(_path, json);
     }
 

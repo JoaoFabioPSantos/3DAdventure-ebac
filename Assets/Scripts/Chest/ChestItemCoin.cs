@@ -14,6 +14,9 @@ public class ChestItemCoin : ChestItemBase
 
     private List<GameObject> _items = new List<GameObject>();
 
+    private bool _collected = false;
+
+
     public override void ShowItem()
     {
         base.ShowItem();
@@ -35,12 +38,22 @@ public class ChestItemCoin : ChestItemBase
     [NaughtyAttributes.Button]
     public override void Collect()
     {
-        base.Collect();
-        foreach(var i in _items)
+        if (_collected) return;
+        _collected = true;
+     
+        foreach (var i in _items)
         {
             i.transform.DOMoveY(2f, tweenEndTime).SetRelative();
             i.transform.DOScale(0, tweenEndTime / 2).SetDelay(tweenEndTime / 2);
-            ItemManager.Instance.AddByType(ItemType.COIN);
+            if (ItemManager.Instance != null)
+            {
+                ItemManager.Instance.AddByType(ItemType.COIN);
+            }
+            else
+            {
+                Debug.LogError("ItemManager.Instance está nulo!");
+            }
         }
+        _items.Clear();
     }
 }

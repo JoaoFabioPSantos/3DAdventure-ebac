@@ -30,8 +30,8 @@ public class ChestBase : MonoBehaviour
     [NaughtyAttributes.Button]
     private void OpenChest()
     {
-        animatorChest.SetTrigger(triggerOpen);
         _isOpenChest = true;
+        animatorChest.SetTrigger(triggerOpen);
         HideNotificationChest();
         Invoke(nameof(ShowItemChest), 1f);
     }
