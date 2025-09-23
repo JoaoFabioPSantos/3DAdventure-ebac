@@ -18,6 +18,8 @@ namespace Items
         private void Start()
         {
             SaveManager.Instance.FileLoaded += OnFileLoaded;
+            Reset();
+            OnFileLoaded(SaveManager.Instance.Setup);
         }
 
         private void OnDestroy()
@@ -28,17 +30,8 @@ namespace Items
 
         private void OnFileLoaded(SaveSetup loadedSave)
         {
-            Reset();
             AddByType(ItemType.COIN, SaveManager.Instance.Setup.coins);
             AddByType(ItemType.LIFE_PACK, SaveManager.Instance.Setup.medPacks);
-        }
-
-
-        public void LoadItemsFromSave()
-        {
-            AddByType(ItemType.COIN, SaveManager.Instance.Setup.coins);
-            AddByType(ItemType.LIFE_PACK, SaveManager.Instance.Setup.medPacks);
-            SaveManager.Instance.SaveItems();
         }
 
         public void Reset()
