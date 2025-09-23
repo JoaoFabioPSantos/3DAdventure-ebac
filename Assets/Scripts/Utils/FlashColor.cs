@@ -26,7 +26,6 @@ public class FlashColor : MonoBehaviour
     [Button]
     public void Flash()
     {
-        if (!EditorApplication.isPlaying) return;
 
         if(meshRenderer != null && !_currTween.IsActive())
         _currTween = meshRenderer.material.DOColor(color, "_EmissionColor", duration).SetLoops(2, LoopType.Yoyo);

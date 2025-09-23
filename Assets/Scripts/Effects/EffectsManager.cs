@@ -13,14 +13,9 @@ public class EffectsManager : Singleton<EffectsManager>
 
     [NaughtyAttributes.Button]
     public void ChangeVignette()
-    {
-        if (!UnityEditor.EditorApplication.isPlaying)
-        {
-            Debug.Log("inicie a cena"); 
-            return;
-        }
-        StartCoroutine(FlashColorVignette()); 
-
+    {         
+        StartCoroutine(FlashColorVignette());
+        return;
     }
 
     IEnumerator FlashColorVignette()

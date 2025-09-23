@@ -54,16 +54,22 @@ public class Player : Singleton<Player>//, IDamageable
         base.Awake();
         OnValidate();
 
-        SaveManager.Instance.Load();
-
         healthBase.OnDamage += Damage;
         healthBase.OnKill += OnKill;
     }
 
+    private void OnDestroy()
+    {
+        // Importante: Remover a assinatura do evento para evitar erros quando o objeto é destruído.
+        SaveManager.Instance.FileLoaded -= OnFileLoaded;
+    }
+
+
     private void Start()
     {
-        GetOnLoad();
-        Respawn();
+        SaveManager.Instance.Load();
+        SaveManager.Instance.FileLoaded += OnFileLoaded;
+        OnFileLoaded(SaveManager.Instance.Setup);
     }
 
     #region LIFE
@@ -250,11 +256,11 @@ public class Player : Singleton<Player>//, IDamageable
         _clothChanger.ChangeTexture(setup);
     }
 
-    public void GetOnLoad()
+    private void OnFileLoaded(SaveSetup loadedSave)
     {
-        ChangeTexture(SaveManager.Instance.Setup.clothSetup, true);
-        Debug.Log(SaveManager.Instance.Setup.clothSetup.clothType);
-        healthBase.ChangeStartLife(SaveManager.Instance.Setup.health);
-        CheckpointManager.Instance.LoadCheckpoint(SaveManager.Instance.Setup.checkPoint);
+        ChangeTexture(loadedSave.clothSetup, true);
+        healthBase.ChangeStartLife(loadedSave.health);
+        CheckpointManager.Instance.LoadCheckpoint(loadedSave.checkPoint);
+        Respawn();
     }
 }

@@ -43,10 +43,8 @@ public class EnemieStateMachineManager : Singleton<EnemieStateMachineManager>
         stateMachine.RegisterStates(EnemieStates.JUMPING, new EnemyStateJumping(), enemyController);
     }
 
-    [Button]
     public void NextState()
-    {
-        if (!EditorApplication.isPlaying) return;
+    { 
         _currentState += 1;
         switch (_currentState)
         {

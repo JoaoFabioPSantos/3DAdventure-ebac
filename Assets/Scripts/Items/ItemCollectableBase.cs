@@ -50,7 +50,7 @@ namespace Items
         {
             if (particleSystem != null) particleSystem.Play();
             if (audioSource != null) audioSource.Play();
-            ItemManager.Instance.AddByType(itemType);   
+            ItemManager.Instance.AddByType(itemType);  
         }
     }
 

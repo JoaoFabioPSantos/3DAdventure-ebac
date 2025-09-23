@@ -44,7 +44,8 @@ public enum SFXType
 {
     NONE,
     COIN,
-    JUMP,
+    COSTUME,
+    HEALTH_PACK,
 }
 
 [System.Serializable]

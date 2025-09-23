@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Studio.Core.Singleton;
+using System;
 
 namespace Cloth
 {
@@ -18,10 +19,25 @@ namespace Cloth
         public List<ClothSetup> clothSetups;
         public ClothSetup _curClothSetup;
 
+        private void Start()
+        {
+            SaveManager.Instance.FileLoaded += OnFileLoaded;
+        }
+
+        private void OnDestroy()
+        {
+            // Importante: Remover a assinatura do evento para evitar erros quando o objeto é destruído.
+            SaveManager.Instance.FileLoaded -= OnFileLoaded;
+        }
+
+        private void OnFileLoaded(SaveSetup loadedSave)
+        {
+            _curClothSetup = loadedSave.clothSetup;
+        }
+
         public ClothSetup GetSetupByType(ClothType typeOfCloth)
         {
             _curClothSetup = clothSetups.Find(i => i.clothType == typeOfCloth);
-            SaveManager.Instance.Setup.clothSetup = _curClothSetup;
             return _curClothSetup;
         }
 

@@ -7,7 +7,6 @@ using Studio.Core.Singleton;
 using Items;
 using System;
 using Cloth;
-using UnityEngine.SceneManagement;
 
 //da pra trocar para um .bat para alterar e deixar com maior "mascaramento", ninguem ver.
 public class SaveManager : Singleton<SaveManager>
@@ -35,11 +34,6 @@ public class SaveManager : Singleton<SaveManager>
 
     }
 
-    private void Start()
-    {
-        Invoke(nameof(Load), .1f);
-    }
-
     public void CreateNewSave()
     {
         _saveSetup = new SaveSetup();
@@ -53,12 +47,15 @@ public class SaveManager : Singleton<SaveManager>
         _saveSetup.clothSetup = ClothManager.Instance.ResetSetup();
     }
 
+    public void ResetSave()
+    {
+        CreateNewSave();
+        Save();
+    }
+
     #region SAVE
-    [NaughtyAttributes.Button]
     public void Save()
     {
-        SaveItems();
-        SavePlayerConfig();
         //esse true é para quebrar as linhas
         string setupToJson = JsonUtility.ToJson(_saveSetup, true);
         Debug.Log(setupToJson);
@@ -70,13 +67,17 @@ public class SaveManager : Singleton<SaveManager>
     {
         _saveSetup.coins = ItemManager.Instance.GetItemByType(ItemType.COIN).soInt.value;
         _saveSetup.medPacks = ItemManager.Instance.GetItemByType(ItemType.LIFE_PACK).soInt.value;
+        Save();
     }
 
     public void SavePlayerConfig()
     {
-        if(Player.Instance != null)_saveSetup.health = Player.Instance.GetLife();
+        _saveSetup.health = Player.Instance.GetLife();
         _saveSetup.clothSetup = ClothManager.Instance.GetCurrentSetup();
         _saveSetup.checkPoint = CheckpointManager.Instance.GetLastCheckPoint();
+        _saveSetup.coins = ItemManager.Instance.GetItemByType(ItemType.COIN).soInt.value;
+        _saveSetup.medPacks = ItemManager.Instance.GetItemByType(ItemType.LIFE_PACK).soInt.value;
+        Save();
     }
 
     public void SaveName(string text)
@@ -111,17 +112,9 @@ public class SaveManager : Singleton<SaveManager>
         else
         {
             //Reset
-            CreateNewSave();
-            Save();
+            ResetSave();
         }
-
-        //FileLoaded.Invoke(_saveSetup);
-    }
-
-    [NaughtyAttributes.Button]
-    private void SaveLevelOne()
-    {
-        SaveLastLevel(1);
+        FileLoaded?.Invoke(_saveSetup);
     }
 
 }

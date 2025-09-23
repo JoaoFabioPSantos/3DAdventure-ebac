@@ -7,6 +7,7 @@ namespace Cloth
     public class ClothItemBase : MonoBehaviour
     {
         public ClothType clothType;
+        public SFXType sfxType;
         public float durationChange = 2f;
         public string compareTag = "Player";
 
@@ -23,7 +24,13 @@ namespace Cloth
             Debug.Log("Collected Cloth");
             var setup = ClothManager.Instance.GetSetupByType(clothType);
             Player.Instance.ChangeTexture(setup, false);
+            PlaySFX();
             HideObject();
+        }
+
+        private void PlaySFX()
+        {
+            SFXPool.Instance.Play(sfxType);
         }
 
         private void HideObject()

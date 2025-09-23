@@ -34,10 +34,8 @@ public class CharacterManager : Singleton<CharacterManager>
         stateMachine.RegisterStates(CharacterStates.JUMPING, new CMStateJumping(), characterAnimation);
     }
 
-    [Button]
     public void NextState()
-    {
-        if (!EditorApplication.isPlaying) return;
+    { 
         _currentState += 1;
         switch (_currentState)
         {

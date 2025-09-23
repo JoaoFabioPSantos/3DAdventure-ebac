@@ -17,17 +17,31 @@ namespace Items
 
         private void Start()
         {
-            Reset();
-            LoadItemsFromSave();
+            SaveManager.Instance.FileLoaded += OnFileLoaded;
         }
+
+        private void OnDestroy()
+        {
+            // Importante: Remover a assinatura do evento para evitar erros quando o objeto é destruído.
+            SaveManager.Instance.FileLoaded -= OnFileLoaded;
+        }
+
+        private void OnFileLoaded(SaveSetup loadedSave)
+        {
+            Reset();
+            AddByType(ItemType.COIN, SaveManager.Instance.Setup.coins);
+            AddByType(ItemType.LIFE_PACK, SaveManager.Instance.Setup.medPacks);
+        }
+
 
         public void LoadItemsFromSave()
         {
             AddByType(ItemType.COIN, SaveManager.Instance.Setup.coins);
             AddByType(ItemType.LIFE_PACK, SaveManager.Instance.Setup.medPacks);
+            SaveManager.Instance.SaveItems();
         }
 
-        private void Reset()
+        public void Reset()
         {
             if (itemSetups != null)
             {
